@@ -1,13 +1,14 @@
 let fs = require("fs").promises
 const { fromFile, fromUrl } = require("./get-font-metrics")
 const md5 = require("md5")
+const package = require("../package.json")
 
 let font = /\.ttf/
 let remoteUrl = /^https?:\/\//
 let whitespace = /\\n */g
 
 const SAVE_FOLDER = process.cwd() + "/.cache"
-const SAVE_FILE = name => SAVE_FOLDER + `/${md5(name)}.json`
+const SAVE_FILE = name => SAVE_FOLDER + `/${package.version}.${md5(name)}.json`
 
 async function saveResult(url, result) {
   try {
@@ -26,7 +27,7 @@ async function loadResult(url) {
   }
 }
 
-async function getFontInfo(url, prev) {
+async function getFontInfo({ url, prev, prefix }) {
   // This generates a stylesheet from scratch for `@import "foo.ttf"`.
   if (!(font.test(url) && url.includes("?"))) return null
 
@@ -104,7 +105,7 @@ async function getFontInfo(url, prev) {
       }
 
 
-      @mixin font-${name()} ($fontSize: false, $lineGap: false, $lineHeight: false, $letterSpacing: false, $leading: false, $capHeight: false, $weight: 400, $italic: false) {
+      @mixin ${prefix}${name()} ($fontSize: false, $lineGap: false, $lineHeight: false, $letterSpacing: false, $leading: false, $capHeight: false, $weight: 400, $italic: false) {
         font-family: ${family}, var(--${name()}-stack, var(--${family}-stack));
         ${italic ? "font-style: italic;" : ""}
         ${weight !== 400 ? `font-weight: ${weight};` : ""}
@@ -191,12 +192,14 @@ async function getFontInfo(url, prev) {
 
 module.exports = {
   utils: {
-    "pow($num, $pow)": function(num, pow) {
+    "pow($num, $pow)": function (num, pow) {
       return Math.pow(num, pow)
     },
   },
-  fontImporter(url, prev, done) {
-    getFontInfo(url, prev).then(done)
+  fontImporter({ prefix = "" } = {}) {
+    return function (url, prev, done) {
+      getFontInfo({ url, prev, prefix }).then(done)
+    }
   },
 }
 
