@@ -44,7 +44,7 @@ const { fontImporter, utils } = require("capsize-sass")
 
 Each font <ins>_name_</ins> is given it's own mixin. Modifiers like "weight" and "italic"ness are added to the end of the mixin name (as shown below).
 
-Each mixin takes all the options that [capsize takes](https://github.com/seek-oss/capsize/blob/master/packages/capsize/README.md#options)
+Each mixin takes all the options that [Capsize takes](https://github.com/seek-oss/capsize/blob/master/packages/capsize/README.md#options)
 
 ```scss
 /* If the weight of the font is 400 you dont need to specify it in the url or the mixin */
