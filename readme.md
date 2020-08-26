@@ -1,7 +1,5 @@
 [![npm](https://img.shields.io/npm/v/capsize-sass.svg?style=for-the-badge)](https://www.npmjs.com/package/capsize-sass)
 
-<br/>
-
 # Capsize in SCSS
 
 > Capsize makes the sizing and layout of text as predictable as every other element on the screen.
