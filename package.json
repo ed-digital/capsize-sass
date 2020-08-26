@@ -1,0 +1,17 @@
+{
+  "name": "capsize-sass",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "blob-to-buffer": "^1.2.8",
+    "cross-fetch": "^3.0.5",
+    "fontkit": "^1.8.1",
+    "md5": "^2.3.0"
+  }
+}
